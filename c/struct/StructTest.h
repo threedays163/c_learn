@@ -71,6 +71,8 @@ struct T2 {
 
 void structTest();
 
+void structfun();
+
 void toString(struct Student stu);
 
 void toString2(struct Student *stu);

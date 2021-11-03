@@ -7,6 +7,17 @@
 
 void pointerTest() {
 
+    int arr[] = {0x11223344, 0x55667788};
+
+    short *p = (short *) arr;
+    printf("%X,%X,%X\n", *p, *p + 1, *(p + 1));
+
+    int i = (int) arr;
+    int *intp = (int *) (i + 1);
+    int v2 = *intp;
+    int v1 = *((int *) i + 1);
+    printf("%X,%X\n", v1, v2);
+
     char *p1;
     short *p2;
     int *p3;
