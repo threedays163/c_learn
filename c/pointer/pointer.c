@@ -7,6 +7,18 @@
 
 void pointerTest() {
 
+    long arr[] = {0x11223344, 0x55667788};
+
+    short *p = (short *) arr;
+    printf("%X,%X,%X\n", *p, *p + 1, *(p + 1));
+
+    // 演示将指针地址保存到普通变量,并取出转为指针继续使用
+    long i = (long) arr;
+
+    long v1 = *((long *) i + 1);
+    long v2 = *(long *) (i + 1);
+    printf("%X, %X\n", v1, v2);
+
     char *p1 = 0;
     short *p2 = 0;
     int *p3 = 0;
@@ -22,8 +34,8 @@ void pointerTest() {
     //printf("%d, %d\n", *p1, *p2);   // 报错
     printf("%d, %d\n", p4 + 2, p5 + 2);
 
-    int i = 0x11223344;
-    char *p6 = (char *) &i;
+    int y = 0x11223344;
+    char *p6 = (char *) &y;
     printf("%X, %d\n", *p6, *p6);
     printf("%X\n", *(p6 + 1));
     printf("%X\n", *(p6 + 2));
@@ -53,9 +65,5 @@ void pointerTest() {
     //p9 = &b;  // 编译不通过
     //*p9 = b;  // 编译不通过
 
-
-    int arr[] = {1, 2, 3, 4};
-    int *p10 = arr;
-    printf("p10[0]=%d\n", *p10);
 
 }
