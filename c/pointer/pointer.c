@@ -7,15 +7,16 @@
 
 void pointerTest() {
 
-    int arr[] = {0x11223344, 0x55667788};
+    long arr[] = {0x11223344, 0x55667788};
 
     short *p = (short *) arr;
     printf("%X,%X,%X\n", *p, *p + 1, *(p + 1));
 
-    int i = (int) arr;
+    // 演示将指针地址保存到普通变量,并取出转为指针继续使用
+    long i = (long) arr;
 
-    int v1 = *((int *) i + 1);
-    int v2 = *(int *) (i + 1);
+    long v1 = *((long *) i + 1);
+    long v2 = *(long *) (i + 1);
     printf("%X, %X\n", v1, v2);
 
     char *p1;

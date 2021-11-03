@@ -28,6 +28,11 @@ void structTest() {
 
     toString(c);
 
+    printf("char 占用空间: %d\n",sizeof(char));
+    printf("short 占用空间: %d\n",sizeof(short ));
+    printf("int 占用空间: %d\n",sizeof(int));
+    printf("long 占用空间: %d\n",sizeof(long));
+
     struct A aa;
     struct A2 a2;
     struct B bb;
@@ -44,6 +49,25 @@ void structTest() {
     printf("t1占用空间: %d\n", sizeof(t1));
     printf("t2占用空间: %d\n", sizeof(t2));
     //toString2(d);
+}
+
+void structfun(){
+
+    printf("%d \n", sizeof(struct Person));     // 16字节
+
+    struct Person stu[15];  // 声明后
+    printf("%d \n", sizeof(stu));
+    stu[0]._name = "aa";
+    stu[0]._age = 23;
+
+    stu[1]._name = "dd";
+    stu[1]._age = 67;
+
+    struct Person * s = stu;
+
+    printf("%d \n",stu[0]._age);
+    printf("%s \n",s->_name);
+    printf("%s \n",(++s)->_name);
 }
 
 void toString(struct Student stu) {
