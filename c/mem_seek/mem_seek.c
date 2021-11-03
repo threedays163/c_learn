@@ -2,25 +2,42 @@
 // Created by zj on 2021/11/3.
 //
 
+#include <stdlib.h>
+#include <unistd.h>
 #include "mem_seek.h"
 #include "stdio.h"
+#include "string.h"
 
 
-void mainFun() {
-    char *filePath = "/Users/zj/projects/c_project/c_learn/c_learn/test.txt";
-    // 读取字节码文件到内存
-    char *content = load(filePath);
-//    char *p = content;
-//    printf("%s\n", p);
-    printf("%s\n", content);
-    char *a = "aaa";
-    printf("%s\n", a);
-    //long firstOffset = seekFirstOffset(content, "1");
+void printCurrentWorkspace(){
+    char buf[80];
+    getcwd(buf,sizeof(buf));
+    printf("current working directory: %s\n", buf);
 }
 
-char *load(char *filePath) {
+void mainFun() {
+
+    printCurrentWorkspace();
+
+    char *filePath = "./cmake_install.cmake";
+    // 读取字节码文件到内存
+    char *aa = load(filePath);
+    printf("aa=%s\n", aa);
+    //long firstOffset = seekFirstOffset(content, "1");
+    if (aa != NULL) {
+        free(aa);
+    }
+}
+
+// 切记: 如果返回指针,则return返回的指针一定不能是栈上创建的,因为栈上创建的所有变量,包括指针,离开了作用域一定会被销毁,要传出来必须要动态申请内存
+// 申请动态内存有2种, 一种是
+char *load(const char *filePath) {
     FILE *fp = NULL;
-    fp = fopen(filePath, "r");
+    fp = fopen(filePath, "rb");
+    if (fp == NULL) {
+        printf("文件%s打开失败\n", filePath);
+        exit(0);
+    }
 
     // 两次读取, 第一次读取文件获取文件长度, 第二次使用给定长度接收文件内容
 
@@ -34,19 +51,21 @@ char *load(char *filePath) {
     // 文件指针回拨到开头
     rewind(fp);
 
-    // 声明给定大小的数组
-    char result[count + 1];
+    // 声明给定大小的动态内存,用于返回值;不使用这种方式申请内存,就是栈上变量,在方法离开后会被销毁掉
+    char *p = (char *) malloc(sizeof(count + 1));
 
     int i = 0;
     tmp = fgetc(fp);
     while (!feof(fp)) {
-        result[i++] = tmp;
+        p[i++] = tmp;
         tmp = fgetc(fp);
     }
+    p[i] = '\0';
 
-    fclose(fp);
-    result[i] = '\0';
-    char *p = result;
+    if (fclose(fp) != 0) {
+        perror("fclose");
+    }
+
     return p;
 }
 

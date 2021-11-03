@@ -11,7 +11,7 @@
 void mainFun();
 
 // 读取文件中的字节
-char *load(char *filePath);
+char * load(const char *filePath);
 
 long seekFirstOffset(const char *content, char *target);
 
