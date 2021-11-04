@@ -13,6 +13,8 @@ void mainFun();
 // 读取文件中的字节
 char * load(const char *filePath);
 
+char * load2(const char *filePath, char ** content);
+
 long seekFirstOffset(const char *content, char *target);
 
 long *seekAllOffset(const char *content, char *target);
